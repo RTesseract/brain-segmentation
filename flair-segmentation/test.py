@@ -32,7 +32,7 @@ train_images_path = "..\\..\\archive\\train" + ("_small" if small else "")
 test_images_path = "..\\..\\archive\\test" + ("_small" if small else "")
 predictions_path = "..\\..\\archive\\predictions" + ("_small" if small else "")
 
-gpu = "0"
+#gpu = "0"
 
 
 def predict(mean=20.0, std=43.0):

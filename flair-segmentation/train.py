@@ -26,9 +26,8 @@ from typing import Dict
 #train_images_path = "./data/train/""..\..\archive\test"
 #valid_images_path = "./data/valid/"
 #init_weights_path = "./weights_128.h5"
-small = True
-train_images_path = "..\\..\\archive\\train" + ("_small" if small else "")
-valid_images_path = "..\\..\\archive\\validate" + ("_small" if small else "")
+train_images_path = "..\\..\\archive\\train"
+valid_images_path = "..\\..\\archive\\validate"
 #init_weights_path = "weights_64.h5"
 weights_path = "."
 log_path = "."
@@ -137,7 +136,10 @@ if __name__ == "__main__":
     #if len(sys.argv) > 1:
     #    gpu = sys.argv[1]
     #device = "/gpu:" + gpu
-    device = "/gpu:0"
+    device = sys.argv[1]
+    if sys.argv[2] == 'small':
+        train_images_path += "_small"
+        valid_images_path += "_small"
 
     try:
         with open(f'history.txt', 'w') as fp:
