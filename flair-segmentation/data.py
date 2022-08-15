@@ -29,7 +29,8 @@ def load_data(path):
             np.chararray: array of corresponding images' filenames without extensions
     """
     images_list = os.listdir(path)
-    total_count = len(images_list) / 2
+    #total_count = len(images_list) / 2
+    total_count = len(images_list) // 2
     images = np.ndarray(
         (total_count, image_rows, image_cols, channels * modalities), dtype=np.uint8
     )
@@ -42,12 +43,16 @@ def load_data(path):
             continue
 
         names[i] = image_name.split(".")[0]
-        slice_number = int(names[i].split("_")[-1])
-        patient_id = "_".join(names[i].split("_")[:-1])
+        #slice_number = int(names[i].split("_")[-1])
+        #patient_id = "_".join(names[i].split("_")[:-1])
+        slice_number = int(names[i].decode("utf-8").split("_")[-1])
+        patient_id = "_".join(names[i].decode("utf-8").split("_")[:-1])
 
         image_mask_name = image_name.split(".")[0] + "_mask.tif"
-        img = imread(os.path.join(path, image_name), as_grey=(modalities == 1))
-        img_mask = imread(os.path.join(path, image_mask_name), as_grey=True)
+        #img = imread(os.path.join(path, image_name), as_grey=(modalities == 1))
+        #img_mask = imread(os.path.join(path, image_mask_name), as_grey=True)
+        img = imread(os.path.join(path, image_name), as_gray=(modalities == 1))
+        img_mask = imread(os.path.join(path, image_mask_name), as_gray=True)
 
         if channels > 1:
             img_prev = read_slice(path, patient_id, slice_number - 1)
@@ -116,7 +121,8 @@ def read_slice(path, patient_id, slice):
     img_path = os.path.join(path, img_name)
 
     try:
-        img = imread(img_path, as_grey=(modalities == 1))
+        #img = imread(img_path, as_grey=(modalities == 1))
+        img = imread(img_path, as_gray=(modalities == 1))
     except Exception:
         pass
 

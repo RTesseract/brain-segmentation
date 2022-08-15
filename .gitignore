@@ -1,4 +1,8 @@
 **/desktop.ini
+**/err.txt
+**/*.png
+**/train/
+**/validation/
 
 # Created by https://www.gitignore.io/api/osx,linux,matlab,python,pycharm,jetbrains
 
