@@ -30,7 +30,8 @@ valid_images_path = "../../archive/validate"
 #init_weights_path = "weights_64.h5"
 weights_path = "../../out/weights"
 log_folder_path = "../../out/logs"
-architecture_path = "../../out/architectures"
+#architecture_path = "../../out/architectures"
+history_path = "../../out/history.txt"
 
 #gpu = "0"
 
@@ -61,15 +62,15 @@ def train(augment: bool, verbose: bool):
     #print(f'aasu: initializing model {fname} ...', end='')
     model = unet(to_conv6, to_conv7, to_conv8, to_conv9)
     model.compile(optimizer=Adam(lr=base_lr), loss=dice_coef_loss, metrics=[dice_coef])
-    plot_model(
-        model=model,
-        to_file=os.path.join(architecture_path, f'model_{fname}.png'),
-        show_shapes=True,
-        show_layer_names=True,
-        rankdir='LR',
-        expand_nested=False,
-        dpi=96,
-    )
+    #plot_model(
+    #    model=model,
+    #    to_file=os.path.join(architecture_path, f'model_{fname}.png'),
+    #    show_shapes=True,
+    #    show_layer_names=True,
+    #    rankdir='LR',
+    #    expand_nested=False,
+    #    dpi=96,
+    #)
     
     #model = unet(architecture['to_conv6'], architecture['to_conv7'], architecture['to_conv8'], architecture['to_conv9'])
     #model.summary()
@@ -109,7 +110,7 @@ def train(augment: bool, verbose: bool):
         epochs=epochs,
         shuffle=False,
         callbacks=[
-            TensorBoard(log_dir=log_path, histogram_freq=1, write_graph=True, write_grads=True, batch_size=batch_size, write_images=True, update_freq='epoch', profile_batch=0),
+            TensorBoard(log_dir=log_path, histogram_freq=1, write_graph=True, write_grads=True, write_images=True),
             EarlyStopping(monitor='val_loss', verbose=1, patience=2)
         ],
         verbose=verbose,
@@ -118,9 +119,9 @@ def train(augment: bool, verbose: bool):
     #print('aasu: training completed\naasu: outputting...', end='')
     #model.save_weights(os.path.join(weights_path, "weights_{}.h5".format(epochs)))
     model.save_weights(os.path.join(weights_path, f'weights_{fname}.h5'))
-    with open('history.txt', 'a') as fp:
+    with open(history_path, 'a') as fp:
         fp.write(f'{fname}: {str(train_history.history)}\n')
-    #print('completed')
+    print('completed')
 
 
 if __name__ == "__main__":
@@ -144,19 +145,21 @@ if __name__ == "__main__":
     augment = True if sys.argv[5] == 'True' else False
     verbose = int(sys.argv[6])
 
+    if not os.path.exists("../../out"):
+        os.mkdir("../../out")
+    if not os.path.exists(log_folder_path):
+        os.mkdir(log_folder_path)
+    if not os.path.exists(weights_path):
+        os.mkdir(weights_path)
+    #if not os.path.exists(architecture_path):
+    #    os.mkdir(architecture_path)
+    #history_path = os.path.join(architecture_path, 'history.txt')
+    with open(history_path, 'w') as fp:
+        fp.write(f'<={epochs} epochs\n')
+    
     try:
-        with open('history.txt', 'w') as fp:
-            fp.write(f'<={epochs} epochs\n')
-
-        if not os.path.exists(log_folder_path):
-            os.mkdir(log_folder_path)
-        if not os.path.exists(weights_path):
-            os.mkdir(weights_path)
-        if not os.path.exists(architecture_path):
-            os.mkdir(architecture_path)
-        
         with tf.device(device):
-            fname = None
+            fname, log_path = None, None
             for to_conv9 in ['conv4', 'conv3', 'conv2', 'conv1']:
                 for to_conv8 in ['conv4', 'conv3', 'conv2', 'conv1']:
                     for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
