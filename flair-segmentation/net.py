@@ -62,7 +62,7 @@ def change_dim(input, src_dim: int, dest_dim: int):
     else: #src_dim == dest_dim
         return input
 
-def unet(ct_conv6: str, ct_conv7: str, ct_conv8: str, ct_conv9: str):
+def unet(to_conv6: str, to_conv7: str, to_conv8: str, to_conv9: str):
     inputs = Input((image_rows, image_cols, channels * modalities))
 
     conv1, pool1 = larm(inputs, 32, (3, 3), 'same', 3, 'relu', (2, 2))
@@ -73,24 +73,24 @@ def unet(ct_conv6: str, ct_conv7: str, ct_conv8: str, ct_conv9: str):
     conv5 = conv_layer(pool4, 512, (3, 3), 'same', 3, 'relu')
     conv5 = conv_layer(conv5, 512, (3, 3), 'same', 3, 'relu')
 
-    #ct_conv6 = change_dim(conv4, 32, 32, self=False)
-    #ct_conv7 = change_dim(conv3, 64, 64, self=False)
-    #ct_conv8 = change_dim(conv2, 128, 128, self=False)
-    #ct_conv9 = change_dim(conv1, 256, 256, self=False)
-    #ct_conv6 = change_dim(conv4, 32, 32, self=True)
-    #ct_conv7 = change_dim(conv4, 32, 64, self=False)
-    #ct_conv8 = change_dim(conv3, 64, 128, self=False)
-    #ct_conv9 = change_dim(conv2, 128, 256, self=False)
+    #to_conv6 = change_dim(conv4, 32, 32, self=False)
+    #to_conv7 = change_dim(conv3, 64, 64, self=False)
+    #to_conv8 = change_dim(conv2, 128, 128, self=False)
+    #to_conv9 = change_dim(conv1, 256, 256, self=False)
+    #to_conv6 = change_dim(conv4, 32, 32, self=True)
+    #to_conv7 = change_dim(conv4, 32, 64, self=False)
+    #to_conv8 = change_dim(conv3, 64, 128, self=False)
+    #to_conv9 = change_dim(conv2, 128, 256, self=False)
     concat_dict = {'conv4': (conv4, 32), 'conv3': (conv3, 64), 'conv2': (conv2, 128), 'conv1': (conv1, 256)}
-    ct_conv6 = change_dim(concat_dict[ct_conv6][0], concat_dict[ct_conv6][1], 32)
-    ct_conv7 = change_dim(concat_dict[ct_conv7][0], concat_dict[ct_conv7][1], 64)
-    ct_conv8 = change_dim(concat_dict[ct_conv8][0], concat_dict[ct_conv8][1], 128)
-    ct_conv9 = change_dim(concat_dict[ct_conv9][0], concat_dict[ct_conv9][1], 256)
+    to_conv6 = change_dim(concat_dict[to_conv6][0], concat_dict[to_conv6][1], 32)
+    to_conv7 = change_dim(concat_dict[to_conv7][0], concat_dict[to_conv7][1], 64)
+    to_conv8 = change_dim(concat_dict[to_conv8][0], concat_dict[to_conv8][1], 128)
+    to_conv9 = change_dim(concat_dict[to_conv9][0], concat_dict[to_conv9][1], 256)
 
-    conv6 = rarm(conv5, ct_conv6, 256, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
-    conv7 = rarm(conv6, ct_conv7, 128, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
-    conv8 = rarm(conv7, ct_conv8, 64, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
-    conv9 = rarm(conv8, ct_conv9, 32, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
+    conv6 = rarm(conv5, to_conv6, 256, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
+    conv7 = rarm(conv6, to_conv7, 128, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
+    conv8 = rarm(conv7, to_conv8, 64, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
+    conv9 = rarm(conv8, to_conv9, 32, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
 
     conv10 = Conv2D(1, (1, 1), activation='sigmoid')(conv9)
 

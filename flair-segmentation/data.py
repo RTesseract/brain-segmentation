@@ -39,7 +39,8 @@ def load_data(path):
 
     i = 0
     for image_name in images_list:
-        if "mask" in image_name:
+        #if "mask" in image_name:
+        if "mask" in image_name or "desktop" in image_name:
             continue
 
         names[i] = image_name.split(".")[0]

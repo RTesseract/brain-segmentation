@@ -23,7 +23,7 @@ train_images_path = './data/train/'
 test_images_path = './data/valid/'
 predictions_path = './predictions/'
 
-gpu = '0'
+#gpu = '0'
 
 
 def predict(mean=30.0, std=50.0):
@@ -164,9 +164,10 @@ if __name__ == '__main__':
     sess = tf.Session(config=config)
     K.set_session(sess)
 
-    if len(sys.argv) > 1:
-        gpu = sys.argv[1]
-    device = '/gpu:' + gpu
+    #if len(sys.argv) > 1:
+    #    gpu = sys.argv[1]
+    #device = '/gpu:' + gpu
+    device = sys.argv[1]
 
     with tf.device(device):
         imgs_mask_test, imgs_mask_pred, names_test = predict()

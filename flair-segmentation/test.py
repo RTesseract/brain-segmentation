@@ -22,42 +22,40 @@ from skimage.io import imsave
 from data import load_data
 from net import unet
 
+from re import match
+
 #weights_path = "./weights_128.h5"
 #train_images_path = "./data/train/"
 #test_images_path = "./data/valid/"
 #predictions_path = "./predictions/"
-weights_path = "weights_aasu.h5"
-small = True
-train_images_path = "..\\..\\archive\\train" + ("_small" if small else "")
-test_images_path = "..\\..\\archive\\test" + ("_small" if small else "")
-predictions_path = "..\\..\\archive\\predictions" + ("_small" if small else "")
+weights_folder_path = "../../out/weights"
+train_images_path = "../../archive/train"
+test_images_path = "../../archive/test"
+predictions_folder_path = "../../out/predictions"
+dsc_folder_path = "../../out/DSCs"
 
 #gpu = "0"
 
 
-def predict(mean=20.0, std=43.0):
+#def predict(mean=20.0, std=43.0):
+def predict(weights_path: str, mean=20.0, std=43.0):
     # load and normalize data
     if mean == 0.0 and std == 1.0:
         imgs_train, _, _ = load_data(train_images_path)
         mean = np.mean(imgs_train)
         std = np.std(imgs_train)
-
     imgs_test, imgs_mask_test, names_test = load_data(test_images_path)
     original_imgs_test = imgs_test.astype(np.uint8)
-
     imgs_test -= mean
     imgs_test /= std
-
     # load model with weights
-    model = unet()
+    #model = unet()
+    model = unet(to_conv6, to_conv7, to_conv8, to_conv9)
     model.load_weights(weights_path)
 
     # make predictions
     imgs_mask_pred = model.predict(imgs_test, verbose=1)
-
     # save to mat file for further processing
-    if not os.path.exists(predictions_path):
-        os.mkdir(predictions_path)
 
     matdict = {
         "pred": imgs_mask_pred,
@@ -65,8 +63,12 @@ def predict(mean=20.0, std=43.0):
         "mask": imgs_mask_test,
         "name": names_test,
     }
-    savemat(os.path.join(predictions_path, "predictions.mat"), matdict)
+    #savemat(os.path.join(predictions_path, "predictions.mat"), matdict)
+    savemat(os.path.join(predictions_folder_path, f"predictions_{fname}.mat"), matdict)
 
+    predictions_path = f'{predictions_folder_path}/{fname}'
+    if not os.path.exists(predictions_path):
+        os.mkdir(predictions_path)
     # save images with segmentation and ground truth mask overlay
     for i in range(len(imgs_test)):
         pred = imgs_mask_pred[i]
@@ -176,27 +178,47 @@ def plot_dc(labels, values):
     axes.axvline(np.mean(values), color="green", linewidth=2)
 
     #plt.savefig("DSC.png", bbox_inches="tight")
-    plt.savefig("DSC_AASU.png", bbox_inches="tight")
+    plt.savefig(os.path.join(dsc_folder_path, f"DSC_{fname}.png"), bbox_inches="tight")
     plt.close(fig)
 
 
 if __name__ == "__main__":
-
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    sess = tf.Session(config=config)
+    #config = tf.ConfigProto()
+    #config.gpu_options.allow_growth = True
+    #config.allow_soft_placement = True
+    #sess = tf.Session(config=config)
+    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.99)
+    sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
     K.set_session(sess)
 
     #if len(sys.argv) > 1:
     #    gpu = sys.argv[1]
     #device = "/gpu:" + gpu
-    device = "/gpu:0"
+    device = sys.argv[1]
+    if sys.argv[2] == 'small':
+        train_images_path += "_small"
+        test_images_path += "_small"
+        predictions_folder_path += "_small"
+    verbose = int(sys.argv[3])
+    
+    if not os.path.exists(predictions_folder_path):
+        os.mkdir(predictions_folder_path)
+    if not os.path.exists(dsc_folder_path):
+        os.mkdir(dsc_folder_path)
 
-    with tf.device(device):
-        imgs_mask_test, imgs_mask_pred, names_test = predict()
-        values, labels = evaluate(imgs_mask_test, imgs_mask_pred, names_test)
-
-    print("\nAverage DSC: " + str(np.mean(values)))
-
-    # plot results
-    plot_dc(labels, values)
+    try:
+        fname = None
+        with tf.device(device):
+            for to_conv9 in ['conv4', 'conv3', 'conv2', 'conv1']:
+                for to_conv8 in ['conv4', 'conv3', 'conv2', 'conv1']:
+                    for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
+                        for to_conv6 in ['conv4', 'conv3', 'conv2', 'conv1']:
+                            fname = f'{to_conv6}_{to_conv7}_{to_conv8}_{to_conv9}'
+                            #imgs_mask_test, imgs_mask_pred, names_test = predict()
+                            imgs_mask_test, imgs_mask_pred, names_test = predict(os.path.join(weights_folder_path, f'weights_{fname}.h5'))
+                            values, labels = evaluate(imgs_mask_test, imgs_mask_pred, names_test)
+                            #print("\nAverage DSC: " + str(np.mean(values)))
+                            print(f"\nAverage DSC of {fname}: {str(np.mean(values))}")
+                            plot_dc(labels, values)
+    except KeyboardInterrupt:
+        print('\naasu: interrupted')
