@@ -160,7 +160,8 @@ if __name__ == "__main__":
     try:
         with tf.device(device):
             fname, log_path = None, None
-            for to_conv9 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            #for to_conv9 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            for to_conv9 in ['conv2', 'conv1']:
                 for to_conv8 in ['conv4', 'conv3', 'conv2', 'conv1']:
                     for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
                         for to_conv6 in ['conv4', 'conv3', 'conv2', 'conv1']:

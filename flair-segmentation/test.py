@@ -54,7 +54,7 @@ def predict(weights_path: str, mean=20.0, std=43.0):
     model.load_weights(weights_path)
 
     # make predictions
-    imgs_mask_pred = model.predict(imgs_test, verbose=1)
+    imgs_mask_pred = model.predict(imgs_test, verbose=verbose)
     # save to mat file for further processing
 
     matdict = {
@@ -208,6 +208,8 @@ if __name__ == "__main__":
 
     try:
         fname = None
+        imgs_mask_test, imgs_mask_pred, names_test = None, None, None
+        values, labels = None, None
         with tf.device(device):
             for to_conv9 in ['conv4', 'conv3', 'conv2', 'conv1']:
                 for to_conv8 in ['conv4', 'conv3', 'conv2', 'conv1']:
@@ -218,7 +220,7 @@ if __name__ == "__main__":
                             imgs_mask_test, imgs_mask_pred, names_test = predict(os.path.join(weights_folder_path, f'weights_{fname}.h5'))
                             values, labels = evaluate(imgs_mask_test, imgs_mask_pred, names_test)
                             #print("\nAverage DSC: " + str(np.mean(values)))
-                            print(f"\nAverage DSC of {fname}: {str(np.mean(values))}")
+                            print(f"Average DSC of {fname}: {str(np.nanmean(values))}")
                             plot_dc(labels, values)
     except KeyboardInterrupt:
         print('\naasu: interrupted')
