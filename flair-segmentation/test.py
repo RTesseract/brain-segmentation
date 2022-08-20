@@ -211,16 +211,17 @@ if __name__ == "__main__":
         imgs_mask_test, imgs_mask_pred, names_test = None, None, None
         values, labels = None, None
         with tf.device(device):
-            for to_conv9 in ['conv4', 'conv3', 'conv2', 'conv1']:
-                for to_conv8 in ['conv4', 'conv3', 'conv2', 'conv1']:
-                    for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
-                        for to_conv6 in ['conv4', 'conv3', 'conv2', 'conv1']:
-                            fname = f'{to_conv6}_{to_conv7}_{to_conv8}_{to_conv9}'
-                            #imgs_mask_test, imgs_mask_pred, names_test = predict()
-                            imgs_mask_test, imgs_mask_pred, names_test = predict(os.path.join(weights_folder_path, f'weights_{fname}.h5'))
-                            values, labels = evaluate(imgs_mask_test, imgs_mask_pred, names_test)
-                            #print("\nAverage DSC: " + str(np.mean(values)))
-                            print(f"Average DSC of {fname}: {str(np.nanmean(values))}")
-                            plot_dc(labels, values)
+            #for to_conv9 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            #    for to_conv8 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            #        for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            #            for to_conv6 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            for to_conv6, to_conv7, to_conv8, to_conv9 in load_concat():
+                fname = f'{to_conv6}_{to_conv7}_{to_conv8}_{to_conv9}'
+                #imgs_mask_test, imgs_mask_pred, names_test = predict()
+                imgs_mask_test, imgs_mask_pred, names_test = predict(os.path.join(weights_folder_path, f'weights_{fname}.h5'))
+                values, labels = evaluate(imgs_mask_test, imgs_mask_pred, names_test)
+                #print("\nAverage DSC: " + str(np.mean(values)))
+                print(f"Average DSC of {fname}: {str(np.nanmean(values))}")
+                plot_dc(labels, values)
     except KeyboardInterrupt:
         print('\naasu: interrupted')

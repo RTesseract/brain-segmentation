@@ -7,12 +7,20 @@ from skimage.io import imread
 from skimage.transform import rescale
 from skimage.transform import rotate
 
+from re import findall
+
 image_rows = 256
 image_cols = 256
 
 channels = 1    # refers to neighboring slices; if set to 3, takes previous and next slice as additional channels
 modalities = 3  # refers to pre, flair and post modalities; if set to 3, uses all and if set to 1, only flair
 
+
+def load_concat():
+    with open('concat_list.txt') as fp:
+        concat = fp.read().split('\n')
+    concat = [tuple(fname.split('_')) for fname in concat if fname != '']
+    return concat
 
 def load_data(path):
     """

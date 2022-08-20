@@ -1,138 +1,109 @@
-2022-08-17 17:38:09.880580: W tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:39] Overriding allow_growth setting because the TF_FORCE_GPU_ALLOW_GROWTH environment variable is set. Original config value was 0.
-WARNING:tensorflow:From train.py:134: The name tf.keras.backend.set_session is deprecated. Please use tf.compat.v1.keras.backend.set_session instead.
+2022-08-20 20:35:15.941118: W tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:39] Overriding allow_growth setting because the TF_FORCE_GPU_ALLOW_GROWTH environment variable is set. Original config value was 0.
+WARNING:tensorflow:From train.py:136: The name tf.keras.backend.set_session is deprecated. Please use tf.compat.v1.keras.backend.set_session instead.
 
+tcmalloc: large alloc 2520514560 bytes == 0x51c2e000 @  0x7fd39b70e1e7 0x7fd39909f0ce 0x7fd3990f9726 0x7fd39918e841 0x59b076 0x515655 0x593dd7 0x5118f8 0x593dd7 0x5118f8 0x549576 0x604173 0x5f5506 0x5f8c6c 0x5f9206 0x64faf2 0x64fc4e 0x7fd39b30bc87 0x5b621a
+tcmalloc: large alloc 2520514560 bytes == 0x11a12e000 @  0x7fd39b70e1e7 0x7fd39909f0ce 0x7fd3990f5cf5 0x7fd3990f5e08 0x7fd3991b50f4 0x7fd3991b830c 0x7fd39933f3ac 0x7fd39933fe10 0x59588e 0x595b69 0x7fd3991bf2a6 0x4d0bb9 0x5124f8 0x549e0e 0x593fce 0x548ae9 0x5127f1 0x549e0e 0x4bca8a 0x5134a6 0x549e0e 0x4bcb19 0x7fd3990e0944 0x59371f 0x515244 0x549576 0x593fce 0x548ae9 0x51566f 0x593dd7 0x5118f8
+tcmalloc: large alloc 1714421760 bytes == 0x11a12e000 @  0x7fd39b70e1e7 0x7fd39909f0ce 0x7fd3990fb715 0x7fd3990fbd1b 0x7fd39919c333 0x5936cc 0x548c51 0x51566f 0x549576 0x593fce 0x548ae9 0x5127f1 0x593dd7 0x5118f8 0x549576 0x604173 0x5f5506 0x5f8c6c 0x5f9206 0x64faf2 0x64fc4e 0x7fd39b30bc87 0x5b621a
+tcmalloc: large alloc 4234936320 bytes == 0x7fd174936000 @  0x7fd39b70e1e7 0x7fd39909f0ce 0x7fd3990f5cf5 0x7fd39919e86d 0x7fd39919f17f 0x7fd39919f2d0 0x4bc4ab 0x7fd3990e0944 0x59371f 0x515244 0x549576 0x593fce 0x548ae9 0x51566f 0x4bc98a 0x7fd3990e0944 0x59371f 0x515244 0x549576 0x593fce 0x548ae9 0x51566f 0x549576 0x593fce 0x548ae9 0x5127f1 0x593dd7 0x5118f8 0x549576 0x604173 0x5f5506
 /usr/local/lib/python3.7/dist-packages/keras/optimizer_v2/adam.py:105: UserWarning: The `lr` argument is deprecated, use `learning_rate` instead.
   super(Adam, self).__init__(name, **kwargs)
 WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-2022-08-17 17:38:22.172054: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 283115520 exceeds 10% of free system memory.
-2022-08-17 17:38:22.386209: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 566231040 exceeds 10% of free system memory.
-2022-08-17 17:38:22.886092: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 283115520 exceeds 10% of free system memory.
-2022-08-17 17:38:25.730566: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 283115520 exceeds 10% of free system memory.
-2022-08-17 17:38:25.935457: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 566231040 exceeds 10% of free system memory.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
-WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
+2022-08-20 20:37:44.458724: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 4234936320 exceeds 10% of free system memory.
+tcmalloc: large alloc 4234936320 bytes == 0x51c2e000 @  0x7fd39b6f0b6b 0x7fd39b710379 0x7fd35f133317 0x7fd34d7ed77f 0x7fd34d883b28 0x7fd35a46f163 0x7fd353a73f4d 0x7fd35a9a7c6f 0x7fd353a76654 0x7fd353a7b63f 0x7fd353a7c19d 0x7fd353a84a3b 0x7fd353a86000 0x7fd35375f4a9 0x7fd35a4971c1 0x7fd35322e2ad 0x7fd3531ad233 0x7fd34baf39d7 0x7fd34bb173b8 0x593784 0x548c51 0x51566f 0x549576 0x4bca8a 0x5134a6 0x549e0e 0x4bca8a 0x532b86 0x594a96 0x548cc1 0x5127f1
+2022-08-20 20:37:45.274783: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 1411645440 exceeds 10% of free system memory.
+2022-08-20 20:37:47.384523: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 25165824 exceeds 10% of free system memory.
+2022-08-20 20:37:47.387575: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 25165824 exceeds 10% of free system memory.
+2022-08-20 20:37:47.395767: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 25165824 exceeds 10% of free system memory.
+tcmalloc: large alloc 2520514560 bytes == 0x7fd1206f6000 @  0x7fd39b70e1e7 0x7fd39909f0ce 0x7fd3990f9726 0x7fd39918e841 0x59b076 0x515655 0x593dd7 0x5118f8 0x593dd7 0x5118f8 0x549576 0x604173 0x5f5506 0x5f8c6c 0x5f9206 0x64faf2 0x64fc4e 0x7fd39b30bc87 0x5b621a
+tcmalloc: large alloc 2520514560 bytes == 0x7fd1b6ab6000 @  0x7fd39b70e1e7 0x7fd39909f0ce 0x7fd3990f5cf5 0x7fd3990f5e08 0x7fd3991b50f4 0x7fd3991b830c 0x7fd39933f3ac 0x7fd39933fe10 0x59588e 0x595b69 0x7fd3991bf2a6 0x4d0bb9 0x5124f8 0x549e0e 0x593fce 0x548ae9 0x5127f1 0x549e0e 0x4bca8a 0x5134a6 0x549e0e 0x4bcb19 0x7fd3990e0944 0x59371f 0x515244 0x549576 0x593fce 0x548ae9 0x51566f 0x593dd7 0x5118f8
+tcmalloc: large alloc 4234936320 bytes == 0x7fcb7ce42000 @  0x7fd39b70e1e7 0x7fd39909f0ce 0x7fd3990f5cf5 0x7fd39919e86d 0x7fd39919f17f 0x7fd39919f2d0 0x4bc4ab 0x7fd3990e0944 0x59371f 0x515244 0x549576 0x593fce 0x548ae9 0x51566f 0x4bc98a 0x7fd3990e0944 0x59371f 0x515244 0x549576 0x593fce 0x548ae9 0x51566f 0x549576 0x593fce 0x548ae9 0x5127f1 0x593dd7 0x5118f8 0x549576 0x604173 0x5f5506
+WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
+tcmalloc: large alloc 4234936320 bytes == 0x7fd1206f6000 @  0x7fd39b6f0b6b 0x7fd39b710379 0x7fd35f133317 0x7fd34d7ed77f 0x7fd34d883b28 0x7fd35a46f163 0x7fd353a73f4d 0x7fd35a9a7c6f 0x7fd353a76654 0x7fd353a7b63f 0x7fd353a7c19d 0x7fd353a84a3b 0x7fd353a86000 0x7fd35375f4a9 0x7fd35a4971c1 0x7fd35322e2ad 0x7fd3531ad233 0x7fd34baf39d7 0x7fd34bb173b8 0x593784 0x548c51 0x51566f 0x549576 0x4bca8a 0x5134a6 0x549e0e 0x4bca8a 0x532b86 0x594a96 0x548cc1 0x5127f1
+2022-08-20 20:56:28.138626: W tensorflow/core/common_runtime/bfc_allocator.cc:275] Allocator (GPU_0_bfc) ran out of memory trying to allocate 1.70GiB with freed_by_count=0. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory were available.
+2022-08-20 20:56:28.170375: W tensorflow/core/common_runtime/bfc_allocator.cc:275] Allocator (GPU_0_bfc) ran out of memory trying to allocate 736.84MiB with freed_by_count=0. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory were available.
+2022-08-20 20:56:38.175077: W tensorflow/core/common_runtime/bfc_allocator.cc:462] Allocator (GPU_0_bfc) ran out of memory trying to allocate 768.00MiB (rounded to 805306368)requested by op model_1/concatenate_7/concat
+If the cause is memory fragmentation maybe the environment variable 'TF_GPU_ALLOCATOR=cuda_malloc_async' will improve the situation. 
+Current allocation summary follows.
+Current allocation summary follows.
+2022-08-20 20:56:38.175843: W tensorflow/core/common_runtime/bfc_allocator.cc:474] *****************************__**********_***_******************************************************
+2022-08-20 20:56:38.179088: W tensorflow/core/framework/op_kernel.cc:1745] OP_REQUIRES failed at concat_op.cc:158 : RESOURCE_EXHAUSTED: OOM when allocating tensor with shape[32,96,256,256] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+Traceback (most recent call last):
+  File "train.py", line 174, in <module>
+    train(augment, verbose)
+  File "train.py", line 119, in train
+    use_multiprocessing=False
+  File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 67, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    inputs, attrs, num_outputs)
+tensorflow.python.framework.errors_impl.ResourceExhaustedError:  OOM when allocating tensor with shape[32,96,256,256] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+	 [[node model_1/concatenate_7/concat
+ (defined at /usr/local/lib/python3.7/dist-packages/keras/backend.py:3224)
+]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info. This isn't available when running in Eager mode.
+ [Op:__inference_train_function_196139]
+
+Errors may have originated from an input operation.
+Input Source operations connected to node model_1/concatenate_7/concat:
+In[0] model_1/conv2d_transpose_7/BiasAdd (defined at /usr/local/lib/python3.7/dist-packages/keras/layers/convolutional.py:1352)	
+In[1] model_1/up_sampling2d/resize/ResizeNearestNeighbor (defined at /usr/local/lib/python3.7/dist-packages/keras/backend.py:3331)	
+In[2] model_1/concatenate_7/concat/axis:
+
+Operation defined at: (most recent call last)
+>>>   File "train.py", line 174, in <module>
+>>>     train(augment, verbose)
+>>> 
+>>>   File "train.py", line 119, in train
+>>>     use_multiprocessing=False
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 64, in error_handler
+>>>     return fn(*args, **kwargs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/training.py", line 1216, in fit
+>>>     tmp_logs = self.train_function(iterator)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/training.py", line 878, in train_function
+>>>     return step_function(self, iterator)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/training.py", line 867, in step_function
+>>>     outputs = model.distribute_strategy.run(run_step, args=(data,))
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/training.py", line 860, in run_step
+>>>     outputs = model.train_step(data)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/training.py", line 808, in train_step
+>>>     y_pred = self(x, training=True)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 64, in error_handler
+>>>     return fn(*args, **kwargs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/base_layer.py", line 1083, in __call__
+>>>     outputs = call_fn(inputs, *args, **kwargs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 92, in error_handler
+>>>     return fn(*args, **kwargs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/functional.py", line 452, in call
+>>>     inputs, training=training, mask=mask)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/functional.py", line 589, in _run_internal_graph
+>>>     outputs = node.layer(*args, **kwargs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 64, in error_handler
+>>>     return fn(*args, **kwargs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/engine/base_layer.py", line 1083, in __call__
+>>>     outputs = call_fn(inputs, *args, **kwargs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 92, in error_handler
+>>>     return fn(*args, **kwargs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/layers/merge.py", line 183, in call
+>>>     return self._merge_function(inputs)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/layers/merge.py", line 528, in _merge_function
+>>>     return backend.concatenate(inputs, axis=self.axis)
+>>> 
+>>>   File "/usr/local/lib/python3.7/dist-packages/keras/backend.py", line 3224, in concatenate
+>>>     return tf.concat([to_dense(x) for x in tensors], axis)
+>>> 

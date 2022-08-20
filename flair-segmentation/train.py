@@ -22,6 +22,8 @@ from net import dice_coef
 from net import dice_coef_loss
 from net import unet
 
+from data import load_concat
+
 #train_images_path = "./data/train/""..\..\archive\test"
 #valid_images_path = "./data/valid/"
 #init_weights_path = "./weights_128.h5"
@@ -160,15 +162,15 @@ if __name__ == "__main__":
     try:
         with tf.device(device):
             fname, log_path = None, None
-            #for to_conv9 in ['conv4', 'conv3', 'conv2', 'conv1']:
-            for to_conv9 in ['conv2', 'conv1']:
-                for to_conv8 in ['conv4', 'conv3', 'conv2', 'conv1']:
-                    for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
-                        for to_conv6 in ['conv4', 'conv3', 'conv2', 'conv1']:
-                                fname = f'{to_conv6}_{to_conv7}_{to_conv8}_{to_conv9}'
-                                log_path = f'{log_folder_path}/{fname}'
-                                if not os.path.exists(log_path):
-                                    os.mkdir(log_path)
-                                train(augment, verbose)
+            #for to_conv9 in ['conv2', 'conv1']:
+            #    for to_conv8 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            #        for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            #            for to_conv6 in ['conv4', 'conv3', 'conv2', 'conv1']:
+            for to_conv6, to_conv7, to_conv8, to_conv9 in load_concat():
+                fname = f'{to_conv6}_{to_conv7}_{to_conv8}_{to_conv9}'
+                log_path = f'{log_folder_path}/{fname}'
+                if not os.path.exists(log_path):
+                    os.mkdir(log_path)
+                train(augment, verbose)
     except KeyboardInterrupt:
         print('\naasu: interrupted')
