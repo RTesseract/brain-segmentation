@@ -4,37 +4,32 @@ import os
 
 import numpy as np
 from skimage.io import imread
-from skimage.transform import rescale
-from skimage.transform import rotate
+from skimage.transform import rescale, rotate
 
 from re import compile
 
 image_rows = 256
 image_cols = 256
 
-channels = 1    # refers to neighboring slices; if set to 3, takes previous and next slice as additional channels
-modalities = 3  # refers to pre, flair and post modalities; if set to 3, uses all and if set to 1, only flair
+channels = 1
+modalities = 3
 
 
 def load_concat():
-    #with open('concat_list.txt') as fp:
-    #    concat = fp.read().split('\n')
-    #if len(concat) != 4:
-    #    raise ValueError(f'{concat} has length {len(concat)} != 4')
-    ##concat = [tuple(fname.split('_')) for fname in concat if fname != '']
-    #return concat
     c, call = None, []
     p = compile(r"\[(.*)\]\[(.*)\]\[(.*)\]\[(.*)\]")
     with open('concat_list.txt') as fp:
         for line in fp:
+            if '#' in line:
+                continue
             c = p.match(line)
             if c:
                 call.append(tuple(c.split(',') for c in c.groups()))
-    print(call)
+    print('-' * 20)
+    for to_conv6, to_conv7, to_conv8, to_conv9 in call:
+        print(f"{','.join(to_conv6)}_{','.join(to_conv7)}_{','.join(to_conv8)}_{','.join(to_conv9)}")
+    print('-' * 20)
     return call
-
-if __name__ == '__main__':
-    load_concat()
 
 def load_data(path):
     """
@@ -51,7 +46,6 @@ def load_data(path):
             np.chararray: array of corresponding images' filenames without extensions
     """
     images_list = os.listdir(path)
-    #total_count = len(images_list) / 2
     total_count = len(images_list) // 2
     images = np.ndarray(
         (total_count, image_rows, image_cols, channels * modalities), dtype=np.uint8
@@ -61,19 +55,14 @@ def load_data(path):
 
     i = 0
     for image_name in images_list:
-        #if "mask" in image_name:
         if "mask" in image_name or "desktop" in image_name:
             continue
 
         names[i] = image_name.split(".")[0]
-        #slice_number = int(names[i].split("_")[-1])
-        #patient_id = "_".join(names[i].split("_")[:-1])
         slice_number = int(names[i].decode("utf-8").split("_")[-1])
         patient_id = "_".join(names[i].decode("utf-8").split("_")[:-1])
 
         image_mask_name = image_name.split(".")[0] + "_mask.tif"
-        #img = imread(os.path.join(path, image_name), as_grey=(modalities == 1))
-        #img_mask = imread(os.path.join(path, image_mask_name), as_grey=True)
         img = imread(os.path.join(path, image_name), as_gray=(modalities == 1))
         img_mask = imread(os.path.join(path, image_mask_name), as_gray=True)
 
@@ -144,7 +133,6 @@ def read_slice(path, patient_id, slice):
     img_path = os.path.join(path, img_name)
 
     try:
-        #img = imread(img_path, as_grey=(modalities == 1))
         img = imread(img_path, as_gray=(modalities == 1))
     except Exception:
         pass
