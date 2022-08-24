@@ -23,6 +23,7 @@ from data import load_data
 from net import unet
 
 from re import match
+from data import load_concat
 
 #weights_path = "./weights_128.h5"
 #train_images_path = "./data/train/"
@@ -216,7 +217,7 @@ if __name__ == "__main__":
             #        for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
             #            for to_conv6 in ['conv4', 'conv3', 'conv2', 'conv1']:
             for to_conv6, to_conv7, to_conv8, to_conv9 in load_concat():
-                fname = f'{to_conv6}_{to_conv7}_{to_conv8}_{to_conv9}'
+                fname = f"{','.join(to_conv6)}_{','.join(to_conv7)}_{','.join(to_conv8)}_{','.join(to_conv9)}"
                 #imgs_mask_test, imgs_mask_pred, names_test = predict()
                 imgs_mask_test, imgs_mask_pred, names_test = predict(os.path.join(weights_folder_path, f'weights_{fname}.h5'))
                 values, labels = evaluate(imgs_mask_test, imgs_mask_pred, names_test)

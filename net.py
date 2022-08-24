@@ -11,7 +11,7 @@ from keras.layers import concatenate
 from keras.models import Model
 
 from keras.layers import UpSampling2D
-from typing import Tuple, Any
+from typing import Tuple, List
 
 from data import channels
 from data import image_cols
@@ -44,16 +44,23 @@ def larm(input, filters: int, kernel_size: Tuple[int, int], padding: str, axis: 
     pooln = MaxPooling2D(pool_size=pool_size)(convn)
     return convn, pooln
 
+#def rarm(input, concat, filters: int, kernel_size_t: Tuple[int, int], kernel_size: Tuple[int, int], strides: Tuple[int, int], padding: str, axis: int, activation: str):
 def rarm(input, concat, filters: int, kernel_size_t: Tuple[int, int], kernel_size: Tuple[int, int], strides: Tuple[int, int], padding: str, axis: int, activation: str):
     upn = Conv2DTranspose(filters, kernel_size_t, strides=strides, padding=padding)(input)
-    #upn = concatenate([upn, (upn if concat is None else concat)], axis=axis)
-    upn = concatenate([upn, concat], axis=axis)
+    #upn = concatenate([upn, concat], axis=axis)
+    #if concat != None:
+    #    upn = concatenate([upn, concat], axis=axis)
+    #print([upn] + concat)
+    if concat != []:
+        upn = concatenate([upn] + concat, axis=axis)
     convn = conv_layer(upn, filters, kernel_size, padding, axis, activation)
     convn = conv_layer(convn, filters, kernel_size, padding, axis, activation)
     return convn
 
 def change_dim(input, src_dim: int, dest_dim: int):
-    if src_dim < dest_dim:
+    if input == None:
+        return None
+    elif src_dim < dest_dim:
         size = (dest_dim // src_dim, dest_dim // src_dim)
         return UpSampling2D(data_format='channels_last', size=size, interpolation='nearest')(input)
     elif src_dim > dest_dim:
@@ -62,7 +69,8 @@ def change_dim(input, src_dim: int, dest_dim: int):
     else: #src_dim == dest_dim
         return input
 
-def unet(to_conv6: str, to_conv7: str, to_conv8: str, to_conv9: str):
+#def unet(to_conv6: str, to_conv7: str, to_conv8: str, to_conv9: str):
+def unet(to_conv6: List[str], to_conv7: List[str], to_conv8: List[str], to_conv9: List[str]):
     inputs = Input((image_rows, image_cols, channels * modalities))
 
     conv1, pool1 = larm(inputs, 32, (3, 3), 'same', 3, 'relu', (2, 2))
@@ -81,11 +89,17 @@ def unet(to_conv6: str, to_conv7: str, to_conv8: str, to_conv9: str):
     #to_conv7 = change_dim(conv4, 32, 64, self=False)
     #to_conv8 = change_dim(conv3, 64, 128, self=False)
     #to_conv9 = change_dim(conv2, 128, 256, self=False)
-    concat_dict = {'conv4': (conv4, 32), 'conv3': (conv3, 64), 'conv2': (conv2, 128), 'conv1': (conv1, 256)}
-    to_conv6 = change_dim(concat_dict[to_conv6][0], concat_dict[to_conv6][1], 32)
-    to_conv7 = change_dim(concat_dict[to_conv7][0], concat_dict[to_conv7][1], 64)
-    to_conv8 = change_dim(concat_dict[to_conv8][0], concat_dict[to_conv8][1], 128)
-    to_conv9 = change_dim(concat_dict[to_conv9][0], concat_dict[to_conv9][1], 256)
+    #concat_dict = {'conv4': (conv4, 32), 'conv3': (conv3, 64), 'conv2': (conv2, 128), 'conv1': (conv1, 256)}
+    concat_dict = {'conv4': (conv4, 32), 'conv3': (conv3, 64), 'conv2': (conv2, 128), 'conv1': (conv1, 256), 'none': (None, 0), '': (None, 0)}
+    to_conv6 = [change_dim(concat_dict[to_conv6_][0], concat_dict[to_conv6_][1], 32) for to_conv6_ in to_conv6]
+    to_conv7 = [change_dim(concat_dict[to_conv7_][0], concat_dict[to_conv7_][1], 64) for to_conv7_ in to_conv7]
+    to_conv8 = [change_dim(concat_dict[to_conv8_][0], concat_dict[to_conv8_][1], 128) for to_conv8_ in to_conv8]
+    to_conv9 = [change_dim(concat_dict[to_conv9_][0], concat_dict[to_conv9_][1], 256) for to_conv9_ in to_conv9]
+
+    to_conv6 = [c for c in to_conv6 if not c is None]
+    to_conv7 = [c for c in to_conv7 if not c is None]
+    to_conv8 = [c for c in to_conv8 if not c is None]
+    to_conv9 = [c for c in to_conv9 if not c is None]
 
     conv6 = rarm(conv5, to_conv6, 256, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')
     conv7 = rarm(conv6, to_conv7, 128, (2, 2), (3, 3), (2, 2), 'same', 3, 'relu')

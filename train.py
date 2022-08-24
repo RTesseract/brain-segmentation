@@ -23,6 +23,7 @@ from net import dice_coef_loss
 from net import unet
 
 from data import load_concat
+from gc import collect
 
 #train_images_path = "./data/train/""..\..\archive\test"
 #valid_images_path = "./data/valid/"
@@ -103,6 +104,7 @@ def train(augment: bool, verbose: bool):
     #)
 
     #print(f'...completed\naasu: training model {fname}: ')
+    collect()
     print(fname)
     train_history = model.fit(
         imgs_train,
@@ -167,7 +169,7 @@ if __name__ == "__main__":
             #        for to_conv7 in ['conv4', 'conv3', 'conv2', 'conv1']:
             #            for to_conv6 in ['conv4', 'conv3', 'conv2', 'conv1']:
             for to_conv6, to_conv7, to_conv8, to_conv9 in load_concat():
-                fname = f'{to_conv6}_{to_conv7}_{to_conv8}_{to_conv9}'
+                fname = f"{','.join(to_conv6)}_{','.join(to_conv7)}_{','.join(to_conv8)}_{','.join(to_conv9)}"
                 log_path = f'{log_folder_path}/{fname}'
                 if not os.path.exists(log_path):
                     os.mkdir(log_path)

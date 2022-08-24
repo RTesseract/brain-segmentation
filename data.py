@@ -7,7 +7,7 @@ from skimage.io import imread
 from skimage.transform import rescale
 from skimage.transform import rotate
 
-from re import findall
+from re import compile
 
 image_rows = 256
 image_cols = 256
@@ -17,10 +17,24 @@ modalities = 3  # refers to pre, flair and post modalities; if set to 3, uses al
 
 
 def load_concat():
+    #with open('concat_list.txt') as fp:
+    #    concat = fp.read().split('\n')
+    #if len(concat) != 4:
+    #    raise ValueError(f'{concat} has length {len(concat)} != 4')
+    ##concat = [tuple(fname.split('_')) for fname in concat if fname != '']
+    #return concat
+    c, call = None, []
+    p = compile(r"\[(.*)\]\[(.*)\]\[(.*)\]\[(.*)\]")
     with open('concat_list.txt') as fp:
-        concat = fp.read().split('\n')
-    concat = [tuple(fname.split('_')) for fname in concat if fname != '']
-    return concat
+        for line in fp:
+            c = p.match(line)
+            if c:
+                call.append(tuple(c.split(',') for c in c.groups()))
+    print(call)
+    return call
+
+if __name__ == '__main__':
+    load_concat()
 
 def load_data(path):
     """
