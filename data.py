@@ -109,6 +109,7 @@ def oversample(images, masks, augment=False):
             continue
 
         if augment:
+            np.random.seed(0)
             image_a, mask_a = augmentation_rotate(images[i], masks[i])
             images_o.append(image_a)
             masks_o.append(mask_a)

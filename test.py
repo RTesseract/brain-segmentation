@@ -1,35 +1,41 @@
 from __future__ import print_function
 from turtle import write
 
-import matplotlib
-matplotlib.use("Agg")
-
 import cv2
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("Agg")
 import numpy as np
 import os
-import sys
-import tensorflow.compat.v1 as tf
 import warnings
 warnings.filterwarnings("ignore")
 
+import tensorflow.compat.v1 as tf
 from tensorflow.compat.v1.keras import backend as K
+
 from scipy.io import savemat
 from skimage.io import imsave
 
 from data import load_data, load_concat
 from net import unet
 
-from csv import DictWriter
+from csv import writer
+from gc import collect
 
-weights_folder_path = "../out/weights"
-train_images_path = "../archive/train"
-test_images_path = "../archive/test"
-predictions_folder_path = "../out/predictions"
-#dsc_folder_path = "../out/DSCs"
-
-
-def predict(weights_path: str, mean=20.0, std=43.0):
+def predict(
+    weights_path: str,
+    verbose: int,
+    fname: str,
+    to_conv6: list,
+    to_conv7: list,
+    to_conv8: list,
+    to_conv9: list,
+    train_images_path: str,
+    test_images_path: str,
+    predictions_folder_path: str,
+    mean=20.0,
+    std=43.0
+):
     if mean == 0.0 and std == 1.0:
         imgs_train, _, _ = load_data(train_images_path)
         mean = np.mean(imgs_train)
@@ -110,7 +116,7 @@ def evaluate(imgs_mask_test, imgs_mask_pred, names_test):
 
             patient_ids.append(p_id)
             dc_values.append(dice_coefficient(p_slices_pred, p_slices_mask))
-            print(p_id + ":\t" + str(dc_values[-1]))
+            #print(p_id + ":\t" + str(dc_values[-1]))
 
             i = p + 1
 
@@ -152,40 +158,57 @@ def gray2rgb(im):
 #    plt.close(fig)
 
 
-if __name__ == "__main__":
+def test_main(device: str, small: bool):
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.99)
     sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
     K.set_session(sess)
 
-    device = sys.argv[1]
-    if sys.argv[2] == 'small':
+    weights_folder_path = "../out/weights"
+    train_images_path = "../archive/train"
+    test_images_path = "../archive/test"
+    predictions_folder_path = "../out/predictions"
+
+    if small:
         train_images_path += "_small"
         test_images_path += "_small"
         predictions_folder_path += "_small"
-    verbose = int(sys.argv[3])
+    verbose = 0
     
     if not os.path.exists(predictions_folder_path):
         os.mkdir(predictions_folder_path)
     #if not os.path.exists(dsc_folder_path):
     #    os.mkdir(dsc_folder_path)
 
-    try:
-        fname = None
-        values, labels = None, None
-        imgs_mask_test, imgs_mask_pred, names_test = None, None, None
-        results = []
-        with tf.device(device):
-            for to_conv6, to_conv7, to_conv8, to_conv9 in load_concat():
-                fname = f"{','.join(to_conv6)}_{','.join(to_conv7)}_{','.join(to_conv8)}_{','.join(to_conv9)}"
-                print(fname)
-                imgs_mask_test, imgs_mask_pred, names_test = predict(os.path.join(weights_folder_path, f'{fname}.h5'))
-                values, labels = evaluate(imgs_mask_test, imgs_mask_pred, names_test)
-                #print(f"Modified Average DSC of {fname}: {str(np.nanmean(values))}")
-                #plot_dc(labels, values)
-                results.append(dict(zip(labels, values)))
-        with open('../out/test.csv', 'w') as fp:
-            writer = DictWriter(fp, delimiter=',', fieldnames=results[0].keys())
-            writer.writeheader()
-            writer.writerows(results)
-    except KeyboardInterrupt:
-        print('\naasu: interrupted')
+    fname = None
+    values, labels = None, None
+    imgs_mask_test, imgs_mask_pred, names_test = None, None, None
+    with open('../out/logs/test.csv', 'w') as fp:
+        first = True
+        w = None
+    with tf.device(device):
+        for to_conv6, to_conv7, to_conv8, to_conv9 in load_concat():
+            fname = f"{','.join(to_conv6)}_{','.join(to_conv7)}_{','.join(to_conv8)}_{','.join(to_conv9)}"
+            collect()
+            print(f'aasu: starting {fname}')
+            imgs_mask_test, imgs_mask_pred, names_test = predict(
+                os.path.join(weights_folder_path, f'{fname}.h5'),
+                verbose,
+                fname,
+                to_conv6,
+                to_conv7,
+                to_conv8,
+                to_conv9,
+                train_images_path,
+                test_images_path,
+                predictions_folder_path
+            )
+            values, labels = evaluate(imgs_mask_test, imgs_mask_pred, names_test)
+            #print(f"Modified Average DSC of {fname}: {str(np.nanmean(values))}")
+            #plot_dc(labels, values)
+            with open('../out/logs/test.csv', 'a') as fp:
+                w = writer(fp, delimiter=',')
+                if first:
+                    w.writerow(['fname', 'nnan_average'] + labels)
+                    first = False
+                w.writerow([fname, np.nanmean(values)] + values)
+            print(f'aasu: ending {fname}')
